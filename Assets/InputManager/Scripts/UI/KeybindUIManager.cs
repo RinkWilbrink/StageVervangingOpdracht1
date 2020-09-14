@@ -25,12 +25,16 @@ public class KeybindUIManager : MonoBehaviour
             GameObject newKeyBindUI = Instantiate(_prefab, ContentObject.transform);
 
             newKeyBindUI.name = string.Format("Keybind:{0} = {1})", i, "(Insert Key)");
-            newKeyBindUI.gameObject.transform.FindChild("Keybind_Text").GetComponent<TMPro.TextMeshProUGUI>().text = "Banaan";
+
+            // Set UI Text
+            newKeyBindUI.gameObject.transform.FindChild("Keybind_Text").GetComponent<TMPro.TextMeshProUGUI>().text = "KeyBind_Action";
+            newKeyBindUI.gameObject.transform.FindChild("Key_Text").GetComponent<TMPro.TextMeshProUGUI>().text = "KeyBind_Key";
+            newKeyBindUI.gameObject.transform.FindChild("").GetComponent<UnityEngine.UI.Button>().onClick.AddListener(delegate { InitiateRebindEvent(string.Format("{0}", i)); });
         }
     }
 
-    public void InitiateRebindEvent()
+    public void InitiateRebindEvent(string KeyBind_ID)
     {
-        Debug.Log("It's Rebind Time!!");
+        Debug.LogFormat("It's Rebind Time!! ID: {0}", KeyBind_ID);
     }
 }
