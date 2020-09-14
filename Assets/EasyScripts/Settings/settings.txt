@@ -1,1 +1,1 @@
-ScriptPath=F:/School and Work/Unity Projects/Stage vervanging/StageVervangingOpdracht1/Assets/InputManager/Scripts/UI
+ScriptPath=F:/Unity Projects/StageVervangingOpdracht1/Assets/InputManager/Scripts/Keybinds
