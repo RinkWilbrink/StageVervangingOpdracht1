@@ -1,5 +1,5 @@
 {
-    "name": "StageVervanging",
+    "name": "CustomKeybinds",
     "maps": [
         {
             "name": "Player",
@@ -36,14 +36,6 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
-                },
-                {
-                    "name": "RebindKey",
-                    "type": "Button",
-                    "id": "f64014e2-50e7-4c31-a9be-ecf27c6dcb9a",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "Press"
                 }
             ],
             "bindings": [
@@ -51,7 +43,7 @@
                     "name": "WASD",
                     "id": "00ca640b-d935-4593-8157-c05846ea39b3",
                     "path": "Dpad",
-                    "interactions": "Hold",
+                    "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Move",
@@ -132,17 +124,6 @@
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "Jump",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "3da1c9cc-dde0-4874-8ce9-78b5711e8a50",
-                    "path": "<Keyboard>/p",
-                    "interactions": "Press",
-                    "processors": "",
-                    "groups": "Keyboard&Mouse",
-                    "action": "RebindKey",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

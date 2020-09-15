@@ -12,6 +12,7 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         //stageVervanging = asset.Inpu;
+        //controls.asset.actionMaps = asset.actionMaps;
     }
     
     /*
@@ -27,9 +28,18 @@ public class PlayerMovement : MonoBehaviour
         controls.Player.Move.Disable();
     }*/
 
+    void Update()
+    {
+    }
+
     public void Movement(InputAction.CallbackContext context) //InputAction.CallbackContext context
     {
         Debug.Log("WASD");
         //transform.position += new Vector3(1f, 0, 1f);
+    }
+
+    public void Jump()
+    {
+        Debug.Log("Jump!");
     }
 }

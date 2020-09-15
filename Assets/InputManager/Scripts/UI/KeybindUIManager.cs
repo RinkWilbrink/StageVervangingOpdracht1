@@ -3,13 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class ScriptableObjectTest : ScriptableObject
-{
-    public string IDK;
-
-    public GameObject dafuck;
-}
-
 public class KeybindUIManager : MonoBehaviour
 {
     // Variables
@@ -48,49 +41,42 @@ public class KeybindUIManager : MonoBehaviour
     {
         Debug.LogFormat("It's Rebind Time!!");
 
-        string[] CurrentKeybind = KeyBind_Action_ID.ToLower().Split('_');
+        //string[] CurrentKeybind = KeyBind_Action_ID.ToLower().Split('_');
+        string[] CurrentKeybind = KeyBind_Action_ID.Split('_');
 
         StartRebindEvent(CurrentKeybind[0], int.Parse(CurrentKeybind[1]));
-    }
-
-    public void TEST(ScriptableObjectTest key)
-    {
-
     }
 
     public void StartRebindEvent(string KeybindType, int keybindIndex)
     {
         InputAction action = new InputAction();
 
-        action = inputAsset.FindAction(string.Format("Player/{0}", KeybindType.Replace(KeybindType[0], char.ToUpper(KeybindType[0]))));
-
-        Debug.Log(string.Format("Player/{0}", KeybindType.Replace(KeybindType[0], char.ToUpper(KeybindType[0]))));
+        action = inputAsset.FindAction(string.Format("Player/{0}", KeybindType /*KeybindType.Replace(KeybindType[0], char.ToUpper(KeybindType[0]))*/));
 
         action.Disable();
 
-        var rebindOperation = action.PerformInteractiveRebinding(1/*keybindIndex*/).OnMatchWaitForAnother(0.1f).WithCancelingThrough("").Start();
-
-        rebindOperation.OnApplyBinding((op, path) => {
-            action.ApplyBindingOverride(path);
-            rebindOperation.Dispose();
-
-            // Re-enable the Binding map
-            action.Enable();
-            inputAsset.FindActionMap("UI").Disable();
-
-            Debug.LogFormat("New binding at index 1 = {0}", action.bindings[1].effectivePath);
-        });
+        var rebindOperation = action.PerformInteractiveRebinding(keybindIndex).WithCancelingThrough("").Start();
 
         rebindOperation.OnComplete((op) => {
-            Debug.Log("Rebind Time Is Finished!");
+            rebindOperation.Dispose();
 
-            //action.Enable();
+            Debug.LogFormat("New binding at index 1 = {0}", action.bindings[keybindIndex].effectivePath);
+
+            action.Enable();
         });
 
         rebindOperation.OnCancel((op) => {
             Debug.Log("Rebind Time Is Cancled!");
 
-            //action.Enable();
+            // Re-enable the Binding map
+            action.Enable();
         });
     }
 }
+
+//rebindOperation.OnApplyBinding((op, path) => {
+//    action.ApplyBindingOverride(path);
+//    rebindOperation.Dispose();
+//
+//    Debug.LogFormat("New binding at index 1 = {0}", action.bindings[keybindIndex].effectivePath);
+//});

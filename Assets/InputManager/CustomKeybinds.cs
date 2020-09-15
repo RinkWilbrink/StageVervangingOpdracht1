@@ -49,14 +49,6 @@ public class @CustomKeybinds : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
-                },
-                {
-                    ""name"": ""RebindKey"",
-                    ""type"": ""Button"",
-                    ""id"": ""f64014e2-50e7-4c31-a9be-ecf27c6dcb9a"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": ""Press""
                 }
             ],
             ""bindings"": [
@@ -64,7 +56,7 @@ public class @CustomKeybinds : IInputActionCollection, IDisposable
                     ""name"": ""WASD"",
                     ""id"": ""00ca640b-d935-4593-8157-c05846ea39b3"",
                     ""path"": ""Dpad"",
-                    ""interactions"": ""Hold"",
+                    ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Move"",
@@ -145,17 +137,6 @@ public class @CustomKeybinds : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""Jump"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""3da1c9cc-dde0-4874-8ce9-78b5711e8a50"",
-                    ""path"": ""<Keyboard>/p"",
-                    ""interactions"": ""Press"",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard&Mouse"",
-                    ""action"": ""RebindKey"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1890,7 +1871,6 @@ public class @CustomKeybinds : IInputActionCollection, IDisposable
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
         m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
         m_Player_Fire = m_Player.FindAction("Fire", throwIfNotFound: true);
-        m_Player_RebindKey = m_Player.FindAction("RebindKey", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1965,7 +1945,6 @@ public class @CustomKeybinds : IInputActionCollection, IDisposable
     private readonly InputAction m_Player_Jump;
     private readonly InputAction m_Player_Look;
     private readonly InputAction m_Player_Fire;
-    private readonly InputAction m_Player_RebindKey;
     public struct PlayerActions
     {
         private @CustomKeybinds m_Wrapper;
@@ -1974,7 +1953,6 @@ public class @CustomKeybinds : IInputActionCollection, IDisposable
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
         public InputAction @Look => m_Wrapper.m_Player_Look;
         public InputAction @Fire => m_Wrapper.m_Player_Fire;
-        public InputAction @RebindKey => m_Wrapper.m_Player_RebindKey;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1996,9 +1974,6 @@ public class @CustomKeybinds : IInputActionCollection, IDisposable
                 @Fire.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnFire;
                 @Fire.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnFire;
                 @Fire.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnFire;
-                @RebindKey.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRebindKey;
-                @RebindKey.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRebindKey;
-                @RebindKey.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRebindKey;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -2015,9 +1990,6 @@ public class @CustomKeybinds : IInputActionCollection, IDisposable
                 @Fire.started += instance.OnFire;
                 @Fire.performed += instance.OnFire;
                 @Fire.canceled += instance.OnFire;
-                @RebindKey.started += instance.OnRebindKey;
-                @RebindKey.performed += instance.OnRebindKey;
-                @RebindKey.canceled += instance.OnRebindKey;
             }
         }
     }
@@ -2259,7 +2231,6 @@ public class @CustomKeybinds : IInputActionCollection, IDisposable
         void OnJump(InputAction.CallbackContext context);
         void OnLook(InputAction.CallbackContext context);
         void OnFire(InputAction.CallbackContext context);
-        void OnRebindKey(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {
