@@ -1,4 +1,4 @@
-// GENERATED AUTOMATICALLY FROM 'Assets/InputManager/StageVervanging.inputactions'
+// GENERATED AUTOMATICALLY FROM 'Assets/InputManager/CustomKeybinds.inputactions'
 
 using System;
 using System.Collections;
@@ -6,13 +6,13 @@ using System.Collections.Generic;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Utilities;
 
-public class @StageVervanging : IInputActionCollection, IDisposable
+public class @CustomKeybinds : IInputActionCollection, IDisposable
 {
     public InputActionAsset asset { get; }
-    public @StageVervanging()
+    public @CustomKeybinds()
     {
         asset = InputActionAsset.FromJson(@"{
-    ""name"": ""StageVervanging"",
+    ""name"": ""CustomKeybinds"",
     ""maps"": [
         {
             ""name"": ""Player"",
@@ -1968,8 +1968,8 @@ public class @StageVervanging : IInputActionCollection, IDisposable
     private readonly InputAction m_Player_RebindKey;
     public struct PlayerActions
     {
-        private @StageVervanging m_Wrapper;
-        public PlayerActions(@StageVervanging wrapper) { m_Wrapper = wrapper; }
+        private @CustomKeybinds m_Wrapper;
+        public PlayerActions(@CustomKeybinds wrapper) { m_Wrapper = wrapper; }
         public InputAction @Move => m_Wrapper.m_Player_Move;
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
         public InputAction @Look => m_Wrapper.m_Player_Look;
@@ -2038,8 +2038,8 @@ public class @StageVervanging : IInputActionCollection, IDisposable
     private readonly InputAction m_UI_TrackedDeviceOrientation;
     public struct UIActions
     {
-        private @StageVervanging m_Wrapper;
-        public UIActions(@StageVervanging wrapper) { m_Wrapper = wrapper; }
+        private @CustomKeybinds m_Wrapper;
+        public UIActions(@CustomKeybinds wrapper) { m_Wrapper = wrapper; }
         public InputAction @Navigate => m_Wrapper.m_UI_Navigate;
         public InputAction @Submit => m_Wrapper.m_UI_Submit;
         public InputAction @Cancel => m_Wrapper.m_UI_Cancel;
@@ -2140,8 +2140,8 @@ public class @StageVervanging : IInputActionCollection, IDisposable
     private readonly InputAction m_KeyBindEvents_FKeys;
     public struct KeyBindEventsActions
     {
-        private @StageVervanging m_Wrapper;
-        public KeyBindEventsActions(@StageVervanging wrapper) { m_Wrapper = wrapper; }
+        private @CustomKeybinds m_Wrapper;
+        public KeyBindEventsActions(@CustomKeybinds wrapper) { m_Wrapper = wrapper; }
         public InputAction @AlternateKeys => m_Wrapper.m_KeyBindEvents_AlternateKeys;
         public InputAction @Numpad => m_Wrapper.m_KeyBindEvents_Numpad;
         public InputAction @Numbers => m_Wrapper.m_KeyBindEvents_Numbers;

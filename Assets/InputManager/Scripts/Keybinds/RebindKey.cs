@@ -17,7 +17,7 @@ public class RebindKey : MonoBehaviour
 
     // When the game starts, instantiate all the keybind rebind menu items.
 
-    public void test() //InputAction.CallbackContext context
+    public void StartRebindEvent() //InputAction.CallbackContext context
     {
         if(RebindEventHasHappend == false)
         {

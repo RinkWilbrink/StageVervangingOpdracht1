@@ -7,13 +7,13 @@ public class PlayerMovement : MonoBehaviour
 {
     // Variables
     [SerializeField] private InputActionAsset asset;
-    public StageVervanging controls;
+    [SerializeField] private CustomKeybinds controls;
 
     void Start()
     {
         //stageVervanging = asset.Inpu;
     }
-
+    
     /*
     private void OnEnable()
     {
@@ -27,7 +27,7 @@ public class PlayerMovement : MonoBehaviour
         controls.Player.Move.Disable();
     }*/
 
-    public void Movement(InputAction.CallbackContext context) //
+    public void Movement(InputAction.CallbackContext context) //InputAction.CallbackContext context
     {
         Debug.Log("WASD");
         //transform.position += new Vector3(1f, 0, 1f);
