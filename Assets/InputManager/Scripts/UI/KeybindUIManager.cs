@@ -27,6 +27,11 @@ public class KeybindUIManager : MonoBehaviour
 
     // Private Variables
 
+    private void Update()
+    {
+        
+    }
+
     private void InstantiateKeybindButtons(GameObject _prefab)
     {
         for (int i = 0; i < 10; i++)
@@ -46,17 +51,16 @@ public class KeybindUIManager : MonoBehaviour
     {
         Debug.LogFormat("It's Rebind Time!!");
 
-        //string[] CurrentKeybind = KeyBind_Action_ID.ToLower().Split('_');
         string[] CurrentKeybind = KeyBind_Action_ID.Split('_');
 
-        StartRebindEvent(CurrentKeybind[0], int.Parse(CurrentKeybind[1]));
+        StartRebindEvent(CurrentKeybind[0], CurrentKeybind.Length > 1 ? !IsWhiteNullOrEmpty(CurrentKeybind[1]) ? int.Parse(CurrentKeybind[1]) : 0 : 0);
     }
 
     public void StartRebindEvent(string KeybindType, int keybindIndex)
     {
         InputAction action = new InputAction();
 
-        action = inputAsset.FindAction(string.Format("Player/{0}", KeybindType /*KeybindType.Replace(KeybindType[0], char.ToUpper(KeybindType[0]))*/));
+        action = inputAsset.FindAction(string.Format("Player/{0}", KeybindType)); //KeybindType.Replace(KeybindType[0], char.ToUpper(KeybindType[0]))
 
         action.Disable();
 
@@ -77,11 +81,17 @@ public class KeybindUIManager : MonoBehaviour
             action.Enable();
         });
     }
+
+    private bool IsWhiteNullOrEmpty(string text)
+    {
+        return string.IsNullOrWhiteSpace(text) || string.IsNullOrEmpty(text);
+    }
 }
 
-//rebindOperation.OnApplyBinding((op, path) => {
-//    action.ApplyBindingOverride(path);
-//    rebindOperation.Dispose();
-//
-//    Debug.LogFormat("New binding at index 1 = {0}", action.bindings[keybindIndex].effectivePath);
-//});
+/* Not Needed now but maybe later.
+rebindOperation.OnApplyBinding((op, path) => {
+    action.ApplyBindingOverride(path);
+    rebindOperation.Dispose();
+
+    Debug.LogFormat("New binding at index 1 = {0}", action.bindings[keybindIndex].effectivePath);
+});*/

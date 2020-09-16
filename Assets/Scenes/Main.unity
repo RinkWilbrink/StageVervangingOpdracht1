@@ -835,10 +835,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23625d86a8bdedf4a9e4dac24de35533, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  asset: {fileID: -944628639613478452, guid: 10392e6165c282d41b5a0198ea807260, type: 3}
-  inputActionRef: {fileID: -5551823379203640180, guid: 10392e6165c282d41b5a0198ea807260, type: 3}
-  inputAsset: {fileID: -944628639613478452, guid: 10392e6165c282d41b5a0198ea807260, type: 3}
-  RebindEventCount: 0
 --- !u!1 &1727097520
 GameObject:
   m_ObjectHideFlags: 0
@@ -1292,9 +1288,9 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7185846983786755558, guid: 4d7d3ab487db8334780246607cb4d126, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
+    - target: {fileID: 7666214247317967618, guid: 4d7d3ab487db8334780246607cb4d126, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: Jump_0
       objectReference: {fileID: 0}
     - target: {fileID: 7668775679051788177, guid: 4d7d3ab487db8334780246607cb4d126, type: 3}
       propertyPath: m_AnchorMin.y
