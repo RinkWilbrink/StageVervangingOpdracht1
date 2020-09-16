@@ -19,16 +19,12 @@ public class SaveKeybinds : MonoBehaviour
         //CheckFilePathExistance(settings_Path);
         string values = Regex.Replace(GetContentFromFileAtPath(string.Format("{0}/binds.txt", Application.persistentDataPath)), @"\t|\n|\r", string.Empty);
 
-        Debug.Log(values);
-
         string[] ContentStrings = values.Split(';');
 
         for (int i = 0; i < ContentStrings.Length; i++)
         {
             string[] ActionAndKeybind = ContentStrings[i].Split('=');
             string[] ActionAndIndex = ActionAndKeybind[0].Split('_');
-
-            Debug.LogFormat("{0} | {1} | {2} | {3}", ActionAndKeybind[0], ActionAndKeybind[1], ActionAndIndex[0], ActionAndIndex[1]);
 
             // Set Keybind data
             InputAction action = inputAsset.FindAction(string.Format("{0}", ActionAndIndex[0]));
