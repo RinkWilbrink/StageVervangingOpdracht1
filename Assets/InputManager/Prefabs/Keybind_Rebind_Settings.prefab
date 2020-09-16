@@ -454,6 +454,7 @@ MonoBehaviour:
   ContentObject: {fileID: 7185846983517318145}
   KeybindUIPrefab: {fileID: 6272955484405302241, guid: e0c1bcee590988c48b0a607312653e85, type: 3}
   inputAsset: {fileID: -944628639613478452, guid: 10392e6165c282d41b5a0198ea807260, type: 3}
+  saveKeybinds: {fileID: 6062396098319590003}
 --- !u!114 &6062396098319590003
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -466,6 +467,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a138db1bb7421d14b8c0bb273dfd7081, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inputAsset: {fileID: -944628639613478452, guid: 10392e6165c282d41b5a0198ea807260, type: 3}
 --- !u!1 &7185846982256492707
 GameObject:
   m_ObjectHideFlags: 0

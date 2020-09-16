@@ -33,23 +33,9 @@ public class KeybindUIManager : MonoBehaviour
 
     private void Awake()
     {
-        panels = GameObject.FindObjectsOfType<KeybindPanel>();
+        saveKeybinds.GetKeybinds();
 
-        for (int i = 0; i < panels.Length; i++)
-        {
-            string NewKey = "";
-
-            try {
-                InputAction action = inputAsset.FindAction(string.Format("Player/{0}", panels[i].KeybindAction));
-
-                NewKey = action.bindings[panels[i].KeybindIndex].effectivePath.Replace("<Keyboard>/", "").ToUpper();
-            } 
-            catch {
-                NewKey = "Not Found!!!";
-            }
-
-            panels[i].SetUIWhenNewKeybind(NewKey);
-        }
+        SetKeybindsUI();
     }
 
     public void InitiateRebindEvent(GameObject Button)
@@ -63,23 +49,12 @@ public class KeybindUIManager : MonoBehaviour
     {
         InputAction action = inputAsset.FindAction(string.Format("Player/{0}", keybindPanel.KeybindAction));
 
-        Debug.LogFormat("{0} {1}", keybindPanel.KeybindAction, keybindPanel.KeybindIndex);
-
         action.Disable();
 
         var rebindOperation = action.PerformInteractiveRebinding(keybindPanel.KeybindIndex).WithCancelingThrough("").Start();
 
-        //rebindOperation.OnApplyBinding((op, path) => {
-        //
-        //    Debug.LogFormat("path = {0}", path);
-        //
-        //    //Debug.LogFormat("New binding at index 1 = {0}", action.bindings[keybindIndex].effectivePath);
-        //});
-
         rebindOperation.OnComplete((op) => {
             rebindOperation.Dispose();
-
-            //Debug.LogFormat("New binding = {0}", action.bindings[keybindPanel.KeybindIndex].effectivePath);
 
             keybindPanel.SetUIWhenNewKeybind(action.bindings[keybindPanel.KeybindIndex].effectivePath.Replace("<Keyboard>/", "").ToUpper());
 
@@ -87,15 +62,32 @@ public class KeybindUIManager : MonoBehaviour
         });
 
         rebindOperation.OnCancel((op) => {
-            //Debug.Log("Rebind Time Is Cancled!");
-
-            // Re-enable the Binding map
             action.Enable();
         });
+
+        //rebindOperation.OnApplyBinding((op, path) => { });
     }
 
-    private bool IsWhiteNullOrEmpty(string text)
+    private void SetKeybindsUI()
     {
-        return string.IsNullOrWhiteSpace(text) || string.IsNullOrEmpty(text);
+        panels = GameObject.FindObjectsOfType<KeybindPanel>();
+
+        for (int i = 0; i < panels.Length; i++)
+        {
+            string NewKey;
+
+            try
+            {
+                InputAction action = inputAsset.FindAction(string.Format("Player/{0}", panels[i].KeybindAction));
+
+                NewKey = action.bindings[panels[i].KeybindIndex].effectivePath.Replace("<Keyboard>/", "").ToUpper();
+            }
+            catch
+            {
+                NewKey = "Not Found!!!";
+            }
+
+            panels[i].SetUIWhenNewKeybind(NewKey);
+        }
     }
 }
