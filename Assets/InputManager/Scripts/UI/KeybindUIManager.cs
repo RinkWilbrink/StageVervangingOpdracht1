@@ -26,10 +26,21 @@ public class KeybindUIManager : MonoBehaviour
     [SerializeField] private InputActionAsset inputAsset;
 
     // Private Variables
+    private KeybindPanel[] panels;
 
-    private void Update()
+    private void Awake()
     {
-        
+        panels = GameObject.FindObjectsOfType<KeybindPanel>();
+
+        for (int i = 0; i < panels.Length; i++)
+        {
+            //Debug.LogFormat("Action: {0}_{1} | Name: {2}", panels[i].KeybindAction, panels[i].KeybindIndex ,panels[i].gameObject.name);
+            string NewKey = "";
+
+            //action.bindings[keybindPanel.KeybindIndex].effectivePath
+
+            panels[i].SetUIWhenNewKeybind(NewKey);
+        }
     }
 
     public void InitiateRebindEvent(GameObject Button)
@@ -41,25 +52,27 @@ public class KeybindUIManager : MonoBehaviour
 
     public void StartRebindEvent(KeybindPanel keybindPanel)
     {
-        InputAction action = new InputAction();
+        InputAction action = inputAsset.FindAction(string.Format("Player/{0}", keybindPanel.KeybindAction));
 
-        action = inputAsset.FindAction(string.Format("Player/{0}", keybindPanel.KeybindAction)); //KeybindType.Replace(KeybindType[0], char.ToUpper(KeybindType[0]))
+        Debug.LogFormat("{0} {1}", keybindPanel.KeybindAction, keybindPanel.KeybindIndex);
 
         action.Disable();
 
         var rebindOperation = action.PerformInteractiveRebinding(keybindPanel.KeybindIndex).WithCancelingThrough("").Start();
 
-        rebindOperation.OnApplyBinding((op, path) => {
-        
-            //Debug.LogFormat("New binding at index 1 = {0}", action.bindings[keybindIndex].effectivePath);
-        });
+        //rebindOperation.OnApplyBinding((op, path) => {
+        //
+        //    Debug.LogFormat("path = {0}", path);
+        //
+        //    //Debug.LogFormat("New binding at index 1 = {0}", action.bindings[keybindIndex].effectivePath);
+        //});
 
         rebindOperation.OnComplete((op) => {
             rebindOperation.Dispose();
 
             Debug.LogFormat("New binding = {0}", action.bindings[keybindPanel.KeybindIndex].effectivePath);
 
-            keybindPanel.SetUIWhenNewKeybind(action.bindings[keybindPanel.KeybindIndex].effectivePath);
+            keybindPanel.SetUIWhenNewKeybind(action.bindings[keybindPanel.KeybindIndex].effectivePath.Replace("<Keyboard>/", "").ToUpper());
 
             action.Enable();
         });
