@@ -35,9 +35,18 @@ public class KeybindUIManager : MonoBehaviour
         for (int i = 0; i < panels.Length; i++)
         {
             //Debug.LogFormat("Action: {0}_{1} | Name: {2}", panels[i].KeybindAction, panels[i].KeybindIndex ,panels[i].gameObject.name);
+
             string NewKey = "";
 
-            //action.bindings[keybindPanel.KeybindIndex].effectivePath
+            try {
+                //action.bindings[keybindPanel.KeybindIndex].effectivePath.Replace("<Keyboard>/", "").ToUpper()
+                InputAction action = inputAsset.FindAction(string.Format("Player/{0}", panels[i].KeybindAction));
+
+                NewKey = action.bindings[panels[i].KeybindIndex].effectivePath.Replace("<Keyboard>/", "").ToUpper();
+            } 
+            catch {
+                NewKey = "Not Found!!!";
+            }
 
             panels[i].SetUIWhenNewKeybind(NewKey);
         }
@@ -45,7 +54,7 @@ public class KeybindUIManager : MonoBehaviour
 
     public void InitiateRebindEvent(GameObject Button)
     {
-        Debug.LogFormat("It's Rebind Time!!");
+        //Debug.LogFormat("It's Rebind Time!!");
 
         StartRebindEvent(Button.GetComponent<KeybindPanel>());
     }
@@ -70,7 +79,7 @@ public class KeybindUIManager : MonoBehaviour
         rebindOperation.OnComplete((op) => {
             rebindOperation.Dispose();
 
-            Debug.LogFormat("New binding = {0}", action.bindings[keybindPanel.KeybindIndex].effectivePath);
+            //Debug.LogFormat("New binding = {0}", action.bindings[keybindPanel.KeybindIndex].effectivePath);
 
             keybindPanel.SetUIWhenNewKeybind(action.bindings[keybindPanel.KeybindIndex].effectivePath.Replace("<Keyboard>/", "").ToUpper());
 
@@ -78,7 +87,7 @@ public class KeybindUIManager : MonoBehaviour
         });
 
         rebindOperation.OnCancel((op) => {
-            Debug.Log("Rebind Time Is Cancled!");
+            //Debug.Log("Rebind Time Is Cancled!");
 
             // Re-enable the Binding map
             action.Enable();
