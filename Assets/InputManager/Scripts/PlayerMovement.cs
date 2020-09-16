@@ -9,29 +9,6 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private InputActionAsset asset;
     [SerializeField] private CustomKeybinds controls;
 
-    void Start()
-    {
-        //stageVervanging = asset.Inpu;
-        //controls.asset.actionMaps = asset.actionMaps;
-    }
-    
-    /*
-    private void OnEnable()
-    {
-        controls.Player.Move.performed += Movement;
-        controls.Player.Move.Enable();
-    }
-
-    private void OnDisable()
-    {
-        controls.Player.Move.performed -= Movement;
-        controls.Player.Move.Disable();
-    }*/
-
-    void Update()
-    {
-    }
-
     public void Movement(InputAction.CallbackContext context) //InputAction.CallbackContext context
     {
         Debug.Log("WASD");

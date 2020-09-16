@@ -5,8 +5,8 @@ using UnityEngine;
 public class KeybindPanel : MonoBehaviour
 {
     // Variables
-    [SerializeField] public string KeybindAction;
-    [SerializeField] public int KeybindIndex;
+    [SerializeField] public string KeybindAction = "";
+    [SerializeField] public int KeybindIndex = 0;
 
     [SerializeField] private TMPro.TextMeshProUGUI Keybind_Key;
 

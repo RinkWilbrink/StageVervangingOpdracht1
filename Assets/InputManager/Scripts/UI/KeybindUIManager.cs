@@ -25,6 +25,9 @@ public class KeybindUIManager : MonoBehaviour
     [Header("Input Asset")]
     [SerializeField] private InputActionAsset inputAsset;
 
+    [Header("Other Script References")]
+    [SerializeField] private SaveKeybinds saveKeybinds;
+
     // Private Variables
     private KeybindPanel[] panels;
 
@@ -34,12 +37,9 @@ public class KeybindUIManager : MonoBehaviour
 
         for (int i = 0; i < panels.Length; i++)
         {
-            //Debug.LogFormat("Action: {0}_{1} | Name: {2}", panels[i].KeybindAction, panels[i].KeybindIndex ,panels[i].gameObject.name);
-
             string NewKey = "";
 
             try {
-                //action.bindings[keybindPanel.KeybindIndex].effectivePath.Replace("<Keyboard>/", "").ToUpper()
                 InputAction action = inputAsset.FindAction(string.Format("Player/{0}", panels[i].KeybindAction));
 
                 NewKey = action.bindings[panels[i].KeybindIndex].effectivePath.Replace("<Keyboard>/", "").ToUpper();
