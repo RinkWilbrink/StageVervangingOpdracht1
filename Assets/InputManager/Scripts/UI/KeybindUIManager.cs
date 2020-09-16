@@ -32,44 +32,34 @@ public class KeybindUIManager : MonoBehaviour
         
     }
 
-    private void InstantiateKeybindButtons(GameObject _prefab)
-    {
-        for (int i = 0; i < 10; i++)
-        {
-            GameObject newKeyBindUI = Instantiate(_prefab, ContentObject.transform);
-
-            newKeyBindUI.name = string.Format("Keybind:{0} = {1})", i, "(Insert Key)");
-
-            // Set UI Text
-            newKeyBindUI.gameObject.transform.Find("Keybind_Text").GetComponent<TMPro.TextMeshProUGUI>().text = "KeyBind_Action";
-            newKeyBindUI.gameObject.transform.Find("Key_Text").GetComponent<TMPro.TextMeshProUGUI>().text = "KeyBind_Key";
-            newKeyBindUI.gameObject.transform.Find("InitiateNewKeybindEvent").GetComponent<UnityEngine.UI.Button>().onClick.AddListener(delegate { InitiateRebindEvent(string.Format("{0}", i)); });
-        }
-    }
-
-    public void InitiateRebindEvent(string KeyBind_Action_ID)
+    public void InitiateRebindEvent(GameObject Button)
     {
         Debug.LogFormat("It's Rebind Time!!");
 
-        string[] CurrentKeybind = KeyBind_Action_ID.Split('_');
-
-        StartRebindEvent(CurrentKeybind[0], CurrentKeybind.Length > 1 ? !IsWhiteNullOrEmpty(CurrentKeybind[1]) ? int.Parse(CurrentKeybind[1]) : 0 : 0);
+        StartRebindEvent(Button.GetComponent<KeybindPanel>());
     }
 
-    public void StartRebindEvent(string KeybindType, int keybindIndex)
+    public void StartRebindEvent(KeybindPanel keybindPanel)
     {
         InputAction action = new InputAction();
 
-        action = inputAsset.FindAction(string.Format("Player/{0}", KeybindType)); //KeybindType.Replace(KeybindType[0], char.ToUpper(KeybindType[0]))
+        action = inputAsset.FindAction(string.Format("Player/{0}", keybindPanel.KeybindAction)); //KeybindType.Replace(KeybindType[0], char.ToUpper(KeybindType[0]))
 
         action.Disable();
 
-        var rebindOperation = action.PerformInteractiveRebinding(keybindIndex).WithCancelingThrough("").Start();
+        var rebindOperation = action.PerformInteractiveRebinding(keybindPanel.KeybindIndex).WithCancelingThrough("").Start();
+
+        rebindOperation.OnApplyBinding((op, path) => {
+        
+            //Debug.LogFormat("New binding at index 1 = {0}", action.bindings[keybindIndex].effectivePath);
+        });
 
         rebindOperation.OnComplete((op) => {
             rebindOperation.Dispose();
 
-            Debug.LogFormat("New binding at index 1 = {0}", action.bindings[keybindIndex].effectivePath);
+            Debug.LogFormat("New binding = {0}", action.bindings[keybindPanel.KeybindIndex].effectivePath);
+
+            keybindPanel.SetUIWhenNewKeybind(action.bindings[keybindPanel.KeybindIndex].effectivePath);
 
             action.Enable();
         });
@@ -87,11 +77,3 @@ public class KeybindUIManager : MonoBehaviour
         return string.IsNullOrWhiteSpace(text) || string.IsNullOrEmpty(text);
     }
 }
-
-/* Not Needed now but maybe later.
-rebindOperation.OnApplyBinding((op, path) => {
-    action.ApplyBindingOverride(path);
-    rebindOperation.Dispose();
-
-    Debug.LogFormat("New binding at index 1 = {0}", action.bindings[keybindIndex].effectivePath);
-});*/
