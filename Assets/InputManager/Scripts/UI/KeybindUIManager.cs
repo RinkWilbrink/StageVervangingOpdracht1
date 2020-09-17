@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -30,6 +31,8 @@ public class KeybindUIManager : MonoBehaviour
 
     // Private Variables
     private KeybindPanel[] panels;
+    private string NewKeybindsString = "";
+    private List<string> CustomKeybinds = new List<string>();
 
     private void Awake()
     {
@@ -53,10 +56,13 @@ public class KeybindUIManager : MonoBehaviour
 
         InputActionRebindingExtensions.RebindingOperation rebindOperation = action.PerformInteractiveRebinding(keybindPanel.KeybindIndex).WithCancelingThrough("").Start();
 
-        rebindOperation.OnComplete((op) => {
+        rebindOperation.OnComplete((op) => 
+        {
             rebindOperation.Dispose();
 
             keybindPanel.SetUIWhenNewKeybind(action.bindings[keybindPanel.KeybindIndex].effectivePath.Replace("<Keyboard>/", "").ToUpper());
+
+            StartKeybindSaving();
 
             action.Enable();
         });
@@ -66,6 +72,32 @@ public class KeybindUIManager : MonoBehaviour
         });
 
         //rebindOperation.OnApplyBinding((op, path) => { });
+    }
+
+    public void StartKeybindSaving()
+    {
+        for (int i = 0; i < inputAsset.Count(); i++)
+        {
+            string help = string.Format("{0}/{1}", inputAsset.ToArray()[i].actionMap.ToString().Split(':')[1], inputAsset.ToArray()[i].name);
+            InputAction currentAction = inputAsset.FindAction(help);
+
+            for (int actionIndex = 0; actionIndex < currentAction.bindings.Count(); actionIndex++)
+            {
+                try
+                {
+                    string BindingText = string.Format("{0}_{1}={2}", help, actionIndex, currentAction.bindings[actionIndex].effectivePath);
+                    Debug.LogFormat("{0} | currentBinding = {1}_{2}", BindingText, currentAction.name, currentAction.bindings[actionIndex].name);
+                    CustomKeybinds.Add(BindingText);
+                }
+                catch
+                {
+                    Debug.LogErrorFormat("help = {0} | actionIndex = {1} | action.bindings[{1}].path = {2} | currentAction.name = {3} | curretnAction.bindings[0].name = {4}",
+                        help, actionIndex, currentAction.bindings[actionIndex].effectivePath, currentAction.name, currentAction.bindings[0].name);
+                }
+            };
+        }
+
+        saveKeybinds.SetKeybinds(CustomKeybinds.ToArray());
     }
 
     private void SetKeybindsUI()
@@ -80,7 +112,7 @@ public class KeybindUIManager : MonoBehaviour
             {
                 InputAction action = inputAsset.FindAction(string.Format("Player/{0}", panels[i].KeybindAction));
 
-                NewKey = action.bindings[panels[i].KeybindIndex].effectivePath.Replace("<Keyboard>/", "").ToUpper();
+                NewKey = action.bindings[panels[i].KeybindIndex].effectivePath.Split('/')[1].ToUpper();
             }
             catch
             {
