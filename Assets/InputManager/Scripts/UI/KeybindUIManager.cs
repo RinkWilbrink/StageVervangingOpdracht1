@@ -5,11 +5,11 @@ using UnityEngine.InputSystem;
 
 /* TODO List
  * 
- * - Update the keybind key to properly show the keybind for that keybind action.
+ * 
  * 
  * Potential Solutions for problems
  * 
- * - Each Keybind Panel/Line/Bar(With its button) can have a script that stores its function and the current keybind and some other information needed for that keybind/action
+ * 
  * 
 */
 
@@ -51,7 +51,7 @@ public class KeybindUIManager : MonoBehaviour
 
         action.Disable();
 
-        var rebindOperation = action.PerformInteractiveRebinding(keybindPanel.KeybindIndex).WithCancelingThrough("").Start();
+        InputActionRebindingExtensions.RebindingOperation rebindOperation = action.PerformInteractiveRebinding(keybindPanel.KeybindIndex).WithCancelingThrough("").Start();
 
         rebindOperation.OnComplete((op) => {
             rebindOperation.Dispose();

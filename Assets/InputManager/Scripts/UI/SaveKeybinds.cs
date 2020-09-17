@@ -39,24 +39,22 @@ public class SaveKeybinds : MonoBehaviour
 
     /// <summary></summary>
     /// <param name="KeyBinds">Array of Keybinds and their action maps! E.G. Player/Move_1 | Player/Jump_0 | UI/Up_0.</param>
-    public void SetKeybinds(string[] KeyBinds)
+    public void SetKeybindsWithArray(string[] KeyBinds)
     {
         string settingsText = string.Empty;
 
         for (int i = 0; i < KeyBinds.Length; i++)
         {
-            string KeybindDivider = ";";
+            settingsText += string.Format("{0}", KeyBinds[i]);
 
-            if (i >= KeyBinds.Length - 1)
+            if (i < KeyBinds.Length - 1)
             {
-                KeybindDivider = string.Empty;
+                settingsText += ";";
             }
-
-            settingsText += string.Format("{0}{1}", KeyBinds[i], KeybindDivider);
         }
 
         // Create or overwrite the settings file in the template folder.
-        CreateAndWriteFile(string.Format("{0}/binds.txt", Application.persistentDataPath), settingsText);
+        CreateAndWriteFile(settingsText);
     }
 
     #region Get/Set Data Functions
@@ -65,17 +63,22 @@ public class SaveKeybinds : MonoBehaviour
         return System.IO.File.ReadAllText(FilePath);
     }
 
-    private void CreateAndWriteFile(string NewFilePath, string WriteText)
+    public void CreateAndWriteFile(string WriteText)
     {
-        using (var writer = new System.IO.StreamWriter(NewFilePath))
+        using (var writer = new System.IO.StreamWriter(string.Format("{0}/binds.txt", Application.persistentDataPath)))
         {
             // Write the text given as parameter and put that text in to the newly created file.
             writer.WriteLine(WriteText);
         }
 
         // Cleanup local variables
-        NewFilePath = null;
         WriteText = null;
     }
     #endregion
+
+
+    private void Wow()
+    {
+
+    }
 }
