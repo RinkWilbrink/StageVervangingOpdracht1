@@ -48,6 +48,7 @@ public class KeybindUIManager : MonoBehaviour
 
         InputActionRebindingExtensions.RebindingOperation rebindOperation = action.PerformInteractiveRebinding(keybindPanel.KeybindIndex).WithCancelingThrough("").Start();
 
+        // Assign the new key, and update the UI and settings file after a succesfull key rebind.
         rebindOperation.OnComplete((op) => 
         {
             rebindOperation.Dispose();
@@ -59,6 +60,8 @@ public class KeybindUIManager : MonoBehaviour
             action.Enable();
         });
 
+
+        // re-enable the action map after a failed rebind event.
         rebindOperation.OnCancel((op) => {
             action.Enable();
         });
@@ -78,14 +81,15 @@ public class KeybindUIManager : MonoBehaviour
             {
                 try
                 {
+                    //Put all keybinds and their actions into a string to be able to save that in a settings file.
                     string BindingText = string.Format("{0}_{1}={2}", help, actionIndex, currentAction.bindings[actionIndex].effectivePath);
                     Debug.LogFormat("{0} | currentBinding = {1}_{2}", BindingText, currentAction.name, currentAction.bindings[actionIndex].name);
                     CustomKeybinds.Add(BindingText);
                 }
                 catch
                 {
-                    Debug.LogErrorFormat("help = {0} | actionIndex = {1} | action.bindings[{1}].path = {2} | currentAction.name = {3} | curretnAction.bindings[0].name = {4}",
-                        help, actionIndex, currentAction.bindings[actionIndex].effectivePath, currentAction.name, currentAction.bindings[0].name);
+                    //Debug.LogErrorFormat("help = {0} | actionIndex = {1} | action.bindings[{1}].path = {2} | currentAction.name = {3} | curretnAction.bindings[0].name = {4}",
+                    //    help, actionIndex, currentAction.bindings[actionIndex].effectivePath, currentAction.name, currentAction.bindings[0].name);
                 }
             };
         }
@@ -106,10 +110,12 @@ public class KeybindUIManager : MonoBehaviour
             {
                 InputAction action = inputAsset.FindAction(string.Format("Player/{0}", panels[i].KeybindAction));
 
+                // Set the keybind in the UI to propperly display the currently assigned keybind.
                 NewKey = action.bindings[panels[i].KeybindIndex].effectivePath.Split('/')[1].ToUpper();
             }
             catch
             {
+                // If no key can be found for the current action, this will be set.
                 NewKey = "Not Found!!!";
             }
 

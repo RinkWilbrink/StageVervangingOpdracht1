@@ -9,6 +9,7 @@ public class Header_Text : MonoBehaviour
 
     private void OnValidate()
     {
+        // Sets the Text for the header so the user doesnt need to go into a child object.
         transform.Find("Header Text").GetComponent<TMPro.TextMeshProUGUI>().text = HeaderText;
     }
 }
