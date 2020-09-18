@@ -544,11 +544,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5725987890107907160}
-  - component: {fileID: 2713093209032689336}
   - component: {fileID: 2786577244218222873}
+  - component: {fileID: 2713093209032689336}
   - component: {fileID: 6897775445790889643}
   m_Layer: 5
-  m_Name: KeybindPanel
+  m_Name: Panel_KeybindRow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -577,14 +577,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1170, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!222 &2713093209032689336
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6272955484405302241}
-  m_CullTransparentMesh: 0
 --- !u!114 &2786577244218222873
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -599,10 +591,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   KeybindAction: 
   KeybindIndex: 0
-  Keybind_Key: {fileID: 7759713056516794669}
-  KeybindAction_Text: {fileID: 3618534630349273110}
   CustomText: 0
   CustomKeybindActionText: 
+--- !u!222 &2713093209032689336
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6272955484405302241}
+  m_CullTransparentMesh: 0
 --- !u!114 &6897775445790889643
 MonoBehaviour:
   m_ObjectHideFlags: 0

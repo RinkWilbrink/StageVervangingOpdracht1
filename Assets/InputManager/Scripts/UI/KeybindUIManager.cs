@@ -4,16 +4,6 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-/* TODO List
- * 
- * 
- * 
- * Potential Solutions for problems
- * 
- * 
- * 
-*/
-
 public class KeybindUIManager : MonoBehaviour
 {
     // Variables
@@ -26,8 +16,7 @@ public class KeybindUIManager : MonoBehaviour
     [Header("Input Asset")]
     [SerializeField] private InputActionAsset inputAsset;
 
-    [Header("Other Script References")]
-    [SerializeField] private SaveKeybinds saveKeybinds;
+    private SaveKeybinds saveKeybinds;
 
     // Private Variables
     private KeybindPanel[] panels;
@@ -36,19 +25,22 @@ public class KeybindUIManager : MonoBehaviour
 
     private void Awake()
     {
+        saveKeybinds = gameObject.GetComponent<SaveKeybinds>();
+
         saveKeybinds.GetKeybinds();
 
         SetKeybindsUI();
     }
 
+    /// <summary>Start the rebind event, This function gets called by the Keybind buttons</summary>
+    /// <param name="Button"></param>
     public void InitiateRebindEvent(GameObject Button)
     {
-        //Debug.LogFormat("It's Rebind Time!!");
-
         StartRebindEvent(Button.GetComponent<KeybindPanel>());
     }
 
-    public void StartRebindEvent(KeybindPanel keybindPanel)
+    //This function is the actual keybind event that lets the user rebind a key for the selected action.
+    private void StartRebindEvent(KeybindPanel keybindPanel)
     {
         InputAction action = inputAsset.FindAction(string.Format("Player/{0}", keybindPanel.KeybindAction));
 
@@ -74,7 +66,8 @@ public class KeybindUIManager : MonoBehaviour
         //rebindOperation.OnApplyBinding((op, path) => { });
     }
 
-    public void StartKeybindSaving()
+    /// <summary>This function puts all keybinds and their respective actions into 1 string to write it in the binds.txt file (The file that stores all keybinds).</summary>
+    private void StartKeybindSaving()
     {
         for (int i = 0; i < inputAsset.Count(); i++)
         {
@@ -100,6 +93,7 @@ public class KeybindUIManager : MonoBehaviour
         saveKeybinds.SetKeybinds(CustomKeybinds.ToArray());
     }
 
+    /// <summary>This function sets all the UI Keybind rows with their currently assigned keybinds.</summary>
     private void SetKeybindsUI()
     {
         panels = GameObject.FindObjectsOfType<KeybindPanel>();

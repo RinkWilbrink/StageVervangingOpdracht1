@@ -8,6 +8,7 @@ public class SaveKeybinds : MonoBehaviour
     [Header("Input Asset")]
     [SerializeField] private InputActionAsset inputAsset;
 
+    /// <summary>Read and assign the Keybinds stored in the settings file.</summary>
     public void GetKeybinds()
     {
         string[] Keybinds;
@@ -16,7 +17,7 @@ public class SaveKeybinds : MonoBehaviour
         try {
             values = GetKeybindString();
         } catch {
-            CreateAndWriteFile(string.Empty);
+            CreateAndWriteSettings(string.Empty);
         }
 
         if(!string.IsNullOrEmpty(values) && !string.IsNullOrWhiteSpace(values))
@@ -57,24 +58,31 @@ public class SaveKeybinds : MonoBehaviour
         }
 
         // Create or overwrite the settings file in the template folder.
-        CreateAndWriteFile(settingsText);
+        CreateAndWriteSettings(settingsText);
     }
+
+    /// <summary>Write the currently assigned keys with their action in a file to store the keybinds for next time.</summary>
+    /// <param name="Contents"></param>
     public void SetKeybinds(string Contents)
     {
         //Debug.LogFormat("Contents: {0}", Contents);
 
         // Create or overwrite the settings file in the template folder.
-        CreateAndWriteFile(Contents);
+        CreateAndWriteSettings(Contents);
     }
 
     #region Get/Set Data Functions
 
+    /// <summary>Get a string with all the content of the file where the keybinds are stored.</summary>
+    /// <returns></returns>
     public string GetKeybindString()
     {
         return Regex.Replace(System.IO.File.ReadAllText(string.Format("{0}/binds.txt", Application.persistentDataPath)), @"\t|\n|\r", string.Empty);
     }
 
-    private void CreateAndWriteFile(string WriteText)
+    /// <summary>Create and/or write to the file that stores all keybinds.</summary>
+    /// <param name="WriteText"></param>
+    private void CreateAndWriteSettings(string WriteText)
     {
         if (!System.IO.File.Exists(string.Format("{0}/binds.txt", Application.persistentDataPath)))
         {

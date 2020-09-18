@@ -1,1 +1,1 @@
-ScriptPath=F:/Unity Projects/StageVervangingOpdracht1/Assets/InputManager
+ScriptPath=F:/Unity Projects/StageVervangingOpdracht1/Assets/InputManager/Scripts/UI

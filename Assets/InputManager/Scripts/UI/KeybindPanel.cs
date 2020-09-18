@@ -8,28 +8,29 @@ public class KeybindPanel : MonoBehaviour
     [SerializeField] public string KeybindAction = "";
     [SerializeField] public int KeybindIndex = 0;
 
-    [Header("Text")]
-    [SerializeField] private TMPro.TextMeshProUGUI Keybind_Key;
-    [SerializeField] private TMPro.TextMeshProUGUI KeybindAction_Text;
-
     [Header("Action UI")]
     [SerializeField] private bool CustomText = false;
     [SerializeField] private string CustomKeybindActionText = "";
 
+    /// <summary>Update the Text field that displays the currently assigned key of this action.</summary>
+    /// <param name="_keybindKey"></param>
     public void SetUIWhenNewKeybind(string _keybindKey)
     {
-        Keybind_Key.text = _keybindKey;
+        transform.Find("Key_Text").GetComponent<TMPro.TextMeshProUGUI>().text = _keybindKey;
     }
 
     private void OnValidate()
     {
+        TMPro.TextMeshProUGUI ActionText = transform.Find("Keybind_Text").GetComponent<TMPro.TextMeshProUGUI>();
+
+        // Set the action UI text.
         if (CustomText == false)
         {
-            KeybindAction_Text.text = KeybindAction;
+            ActionText.text = KeybindAction;
         }
         else
         {
-            KeybindAction_Text.text = CustomKeybindActionText;
+            ActionText.text = CustomKeybindActionText;
         }
     }
 }
