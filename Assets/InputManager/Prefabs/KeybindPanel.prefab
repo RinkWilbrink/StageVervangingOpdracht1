@@ -466,7 +466,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Move
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -597,10 +597,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02d5cadd2bf8b814dbd6cc8c913d988b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  KeybindAction: Move
-  KeybindIndex: 1
+  KeybindAction: 
+  KeybindIndex: 0
   Keybind_Key: {fileID: 7759713056516794669}
   KeybindAction_Text: {fileID: 3618534630349273110}
+  CustomText: 0
+  CustomKeybindActionText: 
 --- !u!114 &6897775445790889643
 MonoBehaviour:
   m_ObjectHideFlags: 0

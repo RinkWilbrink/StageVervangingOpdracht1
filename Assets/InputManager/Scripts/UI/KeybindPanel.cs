@@ -9,11 +9,12 @@ public class KeybindPanel : MonoBehaviour
     [SerializeField] public int KeybindIndex = 0;
 
     [Header("Text")]
-    [SerializeField] protected TMPro.TextMeshProUGUI Keybind_Key;
-    [SerializeField] protected TMPro.TextMeshProUGUI KeybindAction_Text;
+    [SerializeField] private TMPro.TextMeshProUGUI Keybind_Key;
+    [SerializeField] private TMPro.TextMeshProUGUI KeybindAction_Text;
 
-    [SerializeField] public bool CustomText = false;
-    [HideInInspector] public string CustomKeybindActionText = "";
+    [Header("Action UI")]
+    [SerializeField] private bool CustomText = false;
+    [SerializeField] private string CustomKeybindActionText = "";
 
     public void SetUIWhenNewKeybind(string _keybindKey)
     {
@@ -22,7 +23,7 @@ public class KeybindPanel : MonoBehaviour
 
     private void OnValidate()
     {
-        if(CustomText == false)
+        if (CustomText == false)
         {
             KeybindAction_Text.text = KeybindAction;
         }
